@@ -71,10 +71,6 @@ public class ForumController {
 
     @GetMapping("/getUserPosts")
     public List<UserPost> getUserPosts(String username) {
-        List<UserPost> p = repo.getUserPosts(username);
-        for(UserPost pp : p) {
-            System.out.println(pp.getTitle() + " " +pp.getText() + " " +pp.getCategory() + " " +pp.getTime());
-        }
         return repo.getUserPosts(username);
     }
 }

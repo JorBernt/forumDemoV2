@@ -16,8 +16,8 @@ const formatData = data => {
         const out =
             "<tr style='text-align: center'>" +
             "<td>"+post.title+"</td>" +
-            "<td>"+post.category+"</td>"+
             "<td>"+post.text+"</td>" +
+            "<td>"+post.category+"</td>"+
             "<td>"+post.time+"</td>" +
             "</tr>"
         $("#forumPosts").append(out)
