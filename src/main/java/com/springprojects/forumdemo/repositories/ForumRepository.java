@@ -75,7 +75,7 @@ public class ForumRepository {
     }
 
     public List<UserPost> getUserPosts(String username) {
-        String sql = "Select p.title, c.text, cat.title, c.time from Post p, Comment c, Category cat where p.postID = c.postID and p.catID = cat.catID and c.username = ?";
+        String sql = "Select p.title title, c.text text, cat.title category, c.time time from Post p, Comment c, Category cat where p.postID = c.postID and p.catID = cat.catID and c.username = ?";
         return db.query(sql, new BeanPropertyRowMapper<>(UserPost.class), username);
     }
 }
