@@ -12,17 +12,16 @@ import java.security.SecureRandom;
 @Repository
 public class UserRepository {
 
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10, new SecureRandom());
     @Autowired
     private JdbcTemplate db;
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10, new SecureRandom());
 
     public boolean registerUser(User user) {
         String sql = "INSERT INTO Users VALUES(?,?,?)";
         String pass = passwordEncoder.encode(user.getPassword());
         try {
             db.update(sql, user.getUsername(), user.getEmail(), pass);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
             return false;
         }
@@ -34,8 +33,7 @@ public class UserRepository {
         try {
             String password = db.queryForObject(sql, String.class, credentials.getUsername());
             return passwordEncoder.matches(credentials.getPassword(), password);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return false;
         }
     }
@@ -43,12 +41,8 @@ public class UserRepository {
     public boolean isUsernameAvailable(String username) {
         String sql = "SELECT COUNT(*) FROM Users where username = ?";
         try {
-            if(db.queryForObject(sql, Integer.class, username) == 0) {
-                return true;
-            }
-            return false;
-        }
-        catch (Exception e) {
+            return db.queryForObject(sql, Integer.class, username) == 0;
+        } catch (Exception e) {
             return false;
         }
 

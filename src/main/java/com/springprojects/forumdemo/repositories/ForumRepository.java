@@ -45,17 +45,17 @@ public class ForumRepository {
     }
 
     public int createPost(Post post) {
-            String sql = "INSERT INTO Post (title, username, time, catID) VALUES(?,?,?,?)";
-            KeyHolder id = new GeneratedKeyHolder();
-            db.update(con -> {
-                PreparedStatement par = con.prepareStatement(sql, new String[]{"postid"});
-                par.setString(1, post.getTitle());
-                par.setString(2, post.getUsername());
-                par.setObject(3, post.getTimeStamp());
-                par.setInt(4, post.getCatID());
-                return par;
-            }, id);
-            return id.getKeyAs(Integer.class);
+        String sql = "INSERT INTO Post (title, username, time, catID) VALUES(?,?,?,?)";
+        KeyHolder id = new GeneratedKeyHolder();
+        db.update(con -> {
+            PreparedStatement par = con.prepareStatement(sql, new String[]{"postid"});
+            par.setString(1, post.getTitle());
+            par.setString(2, post.getUsername());
+            par.setObject(3, post.getTimeStamp());
+            par.setInt(4, post.getCatID());
+            return par;
+        }, id);
+        return id.getKeyAs(Integer.class);
     }
 
     public String getPostTitle(int id) {
@@ -90,8 +90,7 @@ public class ForumRepository {
         try {
             String sql = "Select p.postID as postID, p.title as title, c.text as text, cat.title as category, c.time as time from Post p, Comment c, Category cat where p.postID = c.postID and p.catID = cat.catID and c.username = ?";
             return db.query(sql, new BeanPropertyRowMapper<>(UserPost.class), username);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return null;
         }
     }

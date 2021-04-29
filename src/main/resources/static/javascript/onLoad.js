@@ -1,27 +1,25 @@
-$(()=> {
+$(() => {
     $.get("/getSession", status => {
         addButtons(status)
     })
 })
 
 
-
 const addButtons = (loggedIn) => {
 
     const navbar = $("#navbarButtons");
-    if(loggedIn) {
+    if (loggedIn) {
         const logoutButton =
             "<li class='nav-item'>" +
             "<a class='nav-link' href='/' onclick='logOut()'>Log out</a>" +
             "</li>"
         const userButton =
             "<li class='nav-item'>" +
-            "<a class='nav-link' href='user.html?name="+getUserName()+"'>"+getUserName()+"</a>" +
+            "<a class='nav-link' href='user.html?name=" + getUserName() + "'>" + getUserName() + "</a>" +
             "</li>"
         navbar.append(logoutButton)
         navbar.append(userButton)
-    }
-    else {
+    } else {
         const loginButton =
             "<li class='nav-item'>" +
             "<a class='nav-link' href='login.html'>Log in</a>" +
@@ -44,10 +42,10 @@ const logOut = () => {
 const getUserName = () => {
     let username = null;
     $.ajax({
-        url : "/sessionUserName",
-        dataType : "html",
-        async : false,
-        success : data => {
+        url: "/sessionUserName",
+        dataType: "html",
+        async: false,
+        success: data => {
             username = data;
         }
     })

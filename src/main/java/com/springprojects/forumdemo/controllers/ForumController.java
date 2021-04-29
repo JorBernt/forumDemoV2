@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class ForumController {
     @GetMapping("/getCategories")
     public List<Category> getCategories(HttpServletResponse response) throws IOException {
         List<Category> categories = repo.getCategories();
-        if(categories!= null) return categories;
+        if (categories != null) return categories;
         else response.sendError(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Error in DB, try again later");
         return null;
     }
@@ -41,7 +40,7 @@ public class ForumController {
     public List<Post> getPosts(int id, HttpServletResponse response) throws IOException {
         List<Post> posts = repo.getPosts(id);
         System.out.println(posts.size());
-        if(posts != null) return posts;
+        if (posts != null) return posts;
         else response.sendError(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Error in DB, try again");
         return null;
     }

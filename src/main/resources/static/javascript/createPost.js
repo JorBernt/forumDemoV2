@@ -1,12 +1,12 @@
 const id = window.location.href.split("id=")[1]
 
-$("#createPost").click(()=> {
+$("#createPost").click(() => {
     const username = getUserName()
 
     const post = {
-        title : $("#postTitle").val(),
-        username : username,
-        catID : id
+        title: $("#postTitle").val(),
+        username: username,
+        catID: id
     }
     $.post("/createPost", post, id => {
         createComment(id)
@@ -15,16 +15,16 @@ $("#createPost").click(()=> {
 
 const createComment = id => {
     const comment = {
-        text : $("#postText").val(),
-        username : getUserName(),
-        postID : id
+        text: $("#postText").val(),
+        username: getUserName(),
+        postID: id
     }
     $.post("/createComment", comment, () => {
-        window.location.href="/post.html?id="+id;
+        window.location.href = "/post.html?id=" + id;
     })
 }
 
-$("#backButton").click(()=> {
-    window.location.href = "/forum.html?catId="+id
+$("#backButton").click(() => {
+    window.location.href = "/forum.html?catId=" + id
 })
 

@@ -1,8 +1,8 @@
 package com.springprojects.forumdemo.controllers;
 
-import com.springprojects.forumdemo.model.user.Validate;
 import com.springprojects.forumdemo.model.user.LoginCredentials;
 import com.springprojects.forumdemo.model.user.User;
+import com.springprojects.forumdemo.model.user.Validate;
 import com.springprojects.forumdemo.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,17 +24,16 @@ public class UserController {
     @Autowired
     private HttpSession session;
 
-    private Logger logger = LoggerFactory.getLogger(UserController.class);
+    private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 
     @PostMapping("/registerUser")
     public void registerUser(User user, HttpServletResponse response) throws IOException {
-        if(!Validate.validateUser(user)) {
+        if (!Validate.validateUser(user)) {
             response.sendError(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Invalid credentials");
             logger.error("Could not validate user credentials");
-        }
-        else {
-            if(!repo.registerUser(user)) {
+        } else {
+            if (!repo.registerUser(user)) {
                 response.sendError(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Error in database, try again later");
                 logger.error("Could not create user in DB");
             }
@@ -42,22 +41,18 @@ public class UserController {
     }
 
     @GetMapping("/loginUser")
-    public boolean login(LoginCredentials credentials)  {
-        if(repo.checkCredentials(credentials)) {
+    public boolean login(LoginCredentials credentials) {
+        if (repo.checkCredentials(credentials)) {
             session.setAttribute("LogIn", credentials.getUsername());
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
 
     @GetMapping("/getSession")
     public boolean getSession() {
-        if(session.getAttribute("LogIn") != null) {
-            return true;
-        }
-        return false;
+        return session.getAttribute("LogIn") != null;
     }
 
     @GetMapping("/logOut")
@@ -67,7 +62,7 @@ public class UserController {
 
     @GetMapping("/sessionUserName")
     public String getSessionUserName() {
-        return (String)session.getAttribute("LogIn");
+        return (String) session.getAttribute("LogIn");
     }
 
     @GetMapping("/usernameAvailable")

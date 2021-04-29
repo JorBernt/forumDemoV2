@@ -1,7 +1,7 @@
 $("#registerButton").click(() => {
     clearErrorFields();
     const userInfo = getUserInfo();
-    if(userInfo === false) return
+    if (userInfo === false) return
     $.post("/registerUser", userInfo, () => {
         logIn(userInfo);
     })
@@ -9,11 +9,11 @@ $("#registerButton").click(() => {
 
 const logIn = userInfo => {
     const credentials = {
-        username : userInfo.username,
-        password : userInfo.password
+        username: userInfo.username,
+        password: userInfo.password
     }
     $.get("/loginUser", credentials, status => {
-        if(status) {
+        if (status) {
             document.location.href = "/"
         }
     })
@@ -22,13 +22,13 @@ const logIn = userInfo => {
 const getUserInfo = () => {
     const username = $("#usernameRegisterInput").val()
     const email = $("#emailRegisterInput").val()
-    const password =  $("#passwordRegisterInput").val()
+    const password = $("#passwordRegisterInput").val()
     const passwordRecheck = $("#passwordRecheckRegisterInput").val()
-    if(!validateInputs(username, email, password, passwordRecheck)) return false
+    if (!validateInputs(username, email, password, passwordRecheck)) return false
     const userInfo = {
-        username : username,
-        email : email,
-        password : password
+        username: username,
+        email: email,
+        password: password
     }
     return userInfo
 }
@@ -38,15 +38,15 @@ const validateInputs = (username, email, password, passwordRecheck) => {
     const mail = validateEmail(email)
     const pass = validatePassword(password)
     const passRecheck = validatePasswordRecheck(password, passwordRecheck)
-    if(user === true && mail === true && pass === true && passRecheck === true) return true
+    if (user === true && mail === true && pass === true && passRecheck === true) return true
     else {
-        if(user !== true)
+        if (user !== true)
             $("#userNameErrorOutput").html(user)
-        if(mail !== true)
+        if (mail !== true)
             $("#emailErrorOutput").html(mail)
-        if(pass !== true)
+        if (pass !== true)
             $("#passwordErrorOutput").html(pass)
-        if(passRecheck !== true)
+        if (passRecheck !== true)
             $("#passwordRecheckErrorOutput").html(passRecheck)
         return false
     }
