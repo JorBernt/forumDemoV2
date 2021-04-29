@@ -8,6 +8,7 @@ import lombok.Setter;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -20,11 +21,20 @@ public class Comment {
     private LocalDateTime time;
 
     public String getTime() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return format.format(time);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss");
+        return formatter.format(time);
+    }
+
+    public void setTime(String time) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss.SSSSSS");
+        this.time = LocalDateTime.parse(time, formatter);
     }
 
     public LocalDateTime getTimeStamp() {
         return time;
+    }
+
+    public void setLocalTimDate(LocalDateTime time) {
+        this.time = time;
     }
 }

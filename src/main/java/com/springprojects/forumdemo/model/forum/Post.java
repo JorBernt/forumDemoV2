@@ -4,10 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.tomcat.jni.Local;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -20,12 +22,22 @@ public class Post {
     private LocalDateTime time;
 
     public String getTime() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return format.format(time);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss");
+        return formatter.format(time);
     }
 
     public LocalDateTime getTimeStamp() {
         return time;
     }
+
+    public void setTime(String time) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss.SSSSSS");
+        this.time = LocalDateTime.parse(time, formatter);
+    }
+
+    public void setLocalTimDate(LocalDateTime time) {
+        this.time = time;
+    }
+
 }
 

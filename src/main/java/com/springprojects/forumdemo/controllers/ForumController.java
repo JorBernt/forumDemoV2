@@ -40,6 +40,7 @@ public class ForumController {
     @GetMapping("/getPosts")
     public List<Post> getPosts(int id, HttpServletResponse response) throws IOException {
         List<Post> posts = repo.getPosts(id);
+        System.out.println(posts.size());
         if(posts != null) return posts;
         else response.sendError(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Error in DB, try again");
         return null;
@@ -48,7 +49,7 @@ public class ForumController {
     @PostMapping("/createPost")
     public int createPost(Post post) {
         LocalDateTime now = LocalDateTime.now();
-        post.setTime(now);
+        post.setLocalTimDate(now);
         return repo.createPost(post);
     }
 
@@ -65,7 +66,7 @@ public class ForumController {
     @PostMapping("/createComment")
     public void createComment(Comment comment) {
         LocalDateTime now = LocalDateTime.now();
-        comment.setTime(now);
+        comment.setLocalTimDate(now);
         repo.createComment(comment);
     }
 

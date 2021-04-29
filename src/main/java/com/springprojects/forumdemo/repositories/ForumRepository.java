@@ -45,21 +45,17 @@ public class ForumRepository {
     }
 
     public int createPost(Post post) {
-        try {
-            String sql = "INSERT INTO Post (title, username, catID) VALUES(?,?,?)";
+            String sql = "INSERT INTO Post (title, username, time, catID) VALUES(?,?,?,?)";
             KeyHolder id = new GeneratedKeyHolder();
             db.update(con -> {
-                PreparedStatement par = con.prepareStatement(sql, new String[]{"postID"});
+                PreparedStatement par = con.prepareStatement(sql, new String[]{"postid"});
                 par.setString(1, post.getTitle());
                 par.setString(2, post.getUsername());
-                par.setInt(3, post.getCatID());
+                par.setObject(3, post.getTimeStamp());
+                par.setInt(4, post.getCatID());
                 return par;
             }, id);
             return id.getKeyAs(Integer.class);
-        }
-        catch (Exception e) {
-            return -1;
-        }
     }
 
     public String getPostTitle(int id) {
@@ -84,7 +80,7 @@ public class ForumRepository {
     public void createComment(Comment comment) {
         try {
             String sql = "INSERT INTO Comment (text, username, time, postID) VALUES(?,?,?,?)";
-            db.update(sql, comment.getText(), comment.getUsername(), comment.getTime(), comment.getPostID());
+            db.update(sql, comment.getText(), comment.getUsername(), comment.getTimeStamp(), comment.getPostID());
         } catch (Exception e) {
             return;
         }
@@ -92,9 +88,10 @@ public class ForumRepository {
 
     public List<UserPost> getUserPosts(String username) {
         try {
-            String sql = "Select p.postID postID, p.title title, c.text text, cat.title category, c.time time from Post p, Comment c, Category cat where p.postID = c.postID and p.catID = cat.catID and c.username = ?";
+            String sql = "Select p.postID as postID, p.title as title, c.text as text, cat.title as category, c.time as time from Post p, Comment c, Category cat where p.postID = c.postID and p.catID = cat.catID and c.username = ?";
             return db.query(sql, new BeanPropertyRowMapper<>(UserPost.class), username);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             return null;
         }
     }
