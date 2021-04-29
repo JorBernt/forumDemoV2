@@ -17,7 +17,6 @@ public class UserRepository {
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10, new SecureRandom());
 
     public boolean registerUser(User user) {
-        System.out.println("test");
         String sql = "INSERT INTO Users VALUES(?,?,?)";
         String pass = passwordEncoder.encode(user.getPassword());
         try {
@@ -39,5 +38,19 @@ public class UserRepository {
         catch (Exception e) {
             return false;
         }
+    }
+
+    public boolean isUsernameAvailable(String username) {
+        String sql = "SELECT COUNT(*) FROM Users where username = ?";
+        try {
+            if(db.queryForObject(sql, Integer.class, username) == 0) {
+                return true;
+            }
+            return false;
+        }
+        catch (Exception e) {
+            return false;
+        }
+
     }
 }

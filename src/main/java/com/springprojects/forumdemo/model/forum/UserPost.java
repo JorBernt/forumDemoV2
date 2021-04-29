@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 @AllArgsConstructor
 
 public class UserPost {
+    int postID;
     String title, text, category;
     Timestamp time;
 

@@ -16,7 +16,7 @@ const addButtons = (loggedIn) => {
             "</li>"
         const userButton =
             "<li class='nav-item'>" +
-            "<a class='nav-link' href='#'>"+getUserName()+"</a>" +
+            "<a class='nav-link' href='user.html?name="+getUserName()+"'>"+getUserName()+"</a>" +
             "</li>"
         navbar.append(logoutButton)
         navbar.append(userButton)

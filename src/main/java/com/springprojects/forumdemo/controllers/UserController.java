@@ -70,4 +70,9 @@ public class UserController {
         return (String)session.getAttribute("LogIn");
     }
 
+    @GetMapping("/usernameAvailable")
+    public boolean isUsernameAvailable(String username) {
+        return repo.isUsernameAvailable(username);
+    }
+
 }
