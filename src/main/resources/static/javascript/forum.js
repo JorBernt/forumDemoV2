@@ -22,7 +22,7 @@ const formatData = data => {
             "<tr style='text-align: center' class='clickable-row' data-href='/'>" +
             "<td>"+post.postID+"</td>" +
             "<td><a href='post.html?id="+post.postID+"'>"+post.title+"</a></td>" +
-            "<td><a href='#'>"+post.username+"</a></td>" +
+            "<td><a href='/user.html?name="+post.username+"'>"+post.username+"</a></td>" +
             "<td>0</td>" +
             "<td>"+post.time+"</td>" +
             "</tr>"
