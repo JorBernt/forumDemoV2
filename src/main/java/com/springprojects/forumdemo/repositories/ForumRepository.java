@@ -45,17 +45,22 @@ public class ForumRepository {
     }
 
     public int createPost(Post post) {
-        String sql = "INSERT INTO Post (title, username, time, catID) VALUES(?,?,?,?)";
-        KeyHolder id = new GeneratedKeyHolder();
-        db.update(con -> {
-            PreparedStatement par = con.prepareStatement(sql, new String[]{"postID"});
-            par.setString(1, post.getTitle());
-            par.setString(2, post.getUsername());
-            par.setTimestamp(3, post.getTimeStamp());
-            par.setInt(4, post.getCatID());
-            return par;
-        }, id);
-        return id.getKeyAs(Integer.class);
+        try {
+            String sql = "INSERT INTO Post (title, username, time, catID) VALUES(?,?,?,?)";
+            KeyHolder id = new GeneratedKeyHolder();
+            db.update(con -> {
+                PreparedStatement par = con.prepareStatement(sql, new String[]{"postID"});
+                par.setString(1, post.getTitle());
+                par.setString(2, post.getUsername());
+                par.setObject(3, post.getTimeStamp());
+                par.setInt(4, post.getCatID());
+                return par;
+            }, id);
+            return id.getKeyAs(Integer.class);
+        }
+        catch (Exception e) {
+            return -1;
+        }
     }
 
     public String getPostTitle(int id) {

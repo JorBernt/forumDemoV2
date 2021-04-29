@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -16,14 +17,14 @@ import java.text.SimpleDateFormat;
 public class Comment {
     private String text, username;
     private int commentID, postID;
-    private Timestamp time;
+    private LocalDateTime time;
 
     public String getTime() {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return format.format(time);
     }
 
-    public Timestamp getTimeStamp() {
+    public LocalDateTime getTimeStamp() {
         return time;
     }
 }

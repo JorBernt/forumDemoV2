@@ -48,7 +48,7 @@ public class ForumController {
     @PostMapping("/createPost")
     public int createPost(Post post) {
         LocalDateTime now = LocalDateTime.now();
-        post.setTime(Timestamp.valueOf(now));
+        post.setTime(now);
         return repo.createPost(post);
     }
 
@@ -65,7 +65,7 @@ public class ForumController {
     @PostMapping("/createComment")
     public void createComment(Comment comment) {
         LocalDateTime now = LocalDateTime.now();
-        comment.setTime(Timestamp.valueOf(now));
+        comment.setTime(now);
         repo.createComment(comment);
     }
 
