@@ -46,14 +46,13 @@ public class ForumRepository {
 
     public int createPost(Post post) {
         try {
-            String sql = "INSERT INTO Post (title, username, time, catID) VALUES(?,?,?,?)";
+            String sql = "INSERT INTO Post (title, username, catID) VALUES(?,?,?)";
             KeyHolder id = new GeneratedKeyHolder();
             db.update(con -> {
                 PreparedStatement par = con.prepareStatement(sql, new String[]{"postID"});
                 par.setString(1, post.getTitle());
                 par.setString(2, post.getUsername());
-                par.setObject(3, post.getTimeStamp());
-                par.setInt(4, post.getCatID());
+                par.setInt(3, post.getCatID());
                 return par;
             }, id);
             return id.getKeyAs(Integer.class);
