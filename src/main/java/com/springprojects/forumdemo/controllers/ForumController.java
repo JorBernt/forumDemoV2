@@ -39,7 +39,6 @@ public class ForumController {
     @GetMapping("/getPosts")
     public List<Post> getPosts(int id, HttpServletResponse response) throws IOException {
         List<Post> posts = repo.getPosts(id);
-        System.out.println(posts.size());
         if (posts != null) return posts;
         else response.sendError(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Error in DB, try again");
         return null;

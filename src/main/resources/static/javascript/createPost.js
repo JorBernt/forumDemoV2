@@ -25,6 +25,6 @@ const createComment = id => {
 }
 
 $("#backButton").click(() => {
-    window.location.href = "/forum.html?catId=" + id
+    window.history.back();
 })
 

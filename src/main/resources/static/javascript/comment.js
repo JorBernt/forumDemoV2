@@ -12,5 +12,5 @@ $("#createComment").click(() => {
 })
 
 $("#backButton").click(() => {
-    window.location.href = "/post.html?id=" + id
+    window.history.back();
 })
