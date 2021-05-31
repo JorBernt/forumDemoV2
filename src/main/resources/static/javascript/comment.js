@@ -14,3 +14,10 @@ $("#createComment").click(() => {
 $("#backButton").click(() => {
     window.history.back();
 })
+
+
+$(document).bind('keypress', e => {
+    if(e.keyCode === 13) {
+        $("#createComment").trigger('click')
+    }
+})

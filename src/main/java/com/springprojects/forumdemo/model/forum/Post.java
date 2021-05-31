@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 @AllArgsConstructor
 
 public class Post {
-    private int postID, catID;
+    private int postID, catID, replies;
     private String title, username;
     private LocalDateTime time;
 

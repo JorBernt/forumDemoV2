@@ -1,17 +1,19 @@
+const id = window.location.search;
+
 $(() => {
-    const id = window.location.href.split("catId=")[1]
-    getCategoryTitle(id);
-    getPosts(id);
+    console.log(id)
+    getCategoryTitle();
+    getPosts();
 })
 
-const getCategoryTitle = id => {
-    $.get("/getCategoryTitle?id=" + id, data => {
+const getCategoryTitle = () => {
+    $.get("/getCategoryTitle" + id, data => {
         $("#categoryTitle").html(data)
     })
 }
 
-const getPosts = id => {
-    $.get("/getPosts?id=" + id, data => {
+const getPosts = () => {
+    $.get("/getPosts" + id, data => {
         formatData(data);
     })
 }
@@ -23,7 +25,7 @@ const formatData = data => {
             "<td>" + post.postID + "</td>" +
             "<td><a href='post.html?id=" + post.postID + "'>" + post.title + "</a></td>" +
             "<td><a href='/user.html?name=" + post.username + "'>" + post.username + "</a></td>" +
-            "<td>0</td>" +
+            "<td>"+post.replies+"</td>" +
             "<td>" + post.time + "</td>" +
             "</tr>"
         $("#forumPosts").append(out)
@@ -33,11 +35,10 @@ const formatData = data => {
 $("#newPostButton").click(() => {
     $.get("getSession", status => {
         if (status) {
-            window.location.href = "createPost.html?id=" + window.location.href.split("catId=")[1];
+            window.location.href = "createPost.html" + id
         } else {
             $("#errorOutput").html("You have to log in to create posts");
             $("#errorOutput").css({"color": "red"})
         }
     })
 })
-

@@ -5,6 +5,10 @@ $("#registerButton").click(() => {
     $.post("/registerUser", userInfo, () => {
         logIn(userInfo);
     })
+        .fail(jqXHR => {
+            const json =$.parseJSON(jqXHR.responseText)
+            $("#passwordRecheckErrorOutput").html(json.message)
+        })
 })
 
 const logIn = userInfo => {
@@ -58,3 +62,9 @@ const clearErrorFields = () => {
     $("#passwordErrorOutput").html("")
     $("#passwordRecheckErrorOutput").html("")
 }
+
+$(document).bind('keypress', e => {
+    if(e.keyCode === 13) {
+        $("#registerButton").trigger('click')
+    }
+})

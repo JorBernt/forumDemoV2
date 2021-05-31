@@ -40,7 +40,7 @@ public class ForumRepository {
     }
 
     public List<Post> getPosts(int id) {
-        String sql = "SELECT * From Post where catID = ?";
+        String sql = "SELECT Post.*, COUNT(Comment.commentId) as replies From Post, Comment where catID = ? AND Comment.PostId = Post.PostId group by Post.postId;";
         return db.query(sql, new BeanPropertyRowMapper<Post>(Post.class), id);
     }
 

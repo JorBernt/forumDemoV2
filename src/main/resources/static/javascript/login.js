@@ -12,3 +12,9 @@ $("#logInButton").click(() => {
         }
     })
 })
+
+$(document).bind('keypress', e => {
+    if(e.keyCode === 13) {
+        $("#logInButton").trigger('click')
+    }
+})

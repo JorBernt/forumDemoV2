@@ -12,7 +12,7 @@ $(() => {
 const formatData = data => {
     for (const cat of data) {
         const out =
-            "<a href='/forum.html?catId=" + cat.catID + "' class='list-group-item list-group-item-action'>" +
+            "<a href='/forum.html?id=" + cat.catID + "' class='list-group-item list-group-item-action'>" +
             "<div class='d-flex w-100 justify-content-between'>" +
             "<h4>" + cat.title + "</h4>" +
             "</div>" +

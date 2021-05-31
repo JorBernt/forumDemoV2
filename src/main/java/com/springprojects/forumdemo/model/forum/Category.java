@@ -13,4 +13,6 @@ import lombok.Setter;
 public class Category {
     private int catID;
     private String title, description;
+
+
 }
